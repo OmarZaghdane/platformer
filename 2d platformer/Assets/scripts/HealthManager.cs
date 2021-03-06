@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    const float MAXHEALTH = 100f;
+    public const float MAXHEALTH = 100f;
     float Health;
     Animator Animator;
     public Slider HealthSlider;
@@ -13,19 +13,14 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         Health = MAXHEALTH;
-       
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void Die()
     {
         Debug.Log("die");
-        GetComponent<Animator>().SetBool("Dead",true);
-        
+        GetComponent<Animator>().SetBool("Dead", true);
+        //Time.timeScale = 0f;
     }
     public void TakeDamage(float amount)
     {
@@ -33,11 +28,27 @@ public class HealthManager : MonoBehaviour
 
         if (Health <= 0)
         {
-        Health = 0;
-        Die();
-        
+            Health = 0;
+            Die();
+
         }
-        HealthSlider.value = Health / MAXHEALTH;
+        HealthSlider.value = Health;
     }
-   
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlusHealth"))
+        {
+            Debug.Log("functioniscalled");
+            Health += 10;
+            HealthSlider.value = Health;
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            Debug.Log(other.tag);
+
+        }
+
+
+    }
 }

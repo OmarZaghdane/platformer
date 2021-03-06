@@ -22,10 +22,11 @@ public class HeathPlus : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlusHealth"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Health += MAXHEALTH;
-            HealthSlider.value = Health / MAXHEALTH;
+            Debug.Log("functioniscalled");
+            Health += 5;
+            HealthSlider.value = Health++ ;
             Destroy(gameObject);
         }
 
