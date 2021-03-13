@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -21,9 +22,11 @@ public class HealthManager : MonoBehaviour
         Debug.Log("die");
         GetComponent<Animator>().SetBool("Dead", true);
         //Time.timeScale = 0f;
+        SceneManager.LoadScene(SceneNames.Score.ToString());
     }
     public void TakeDamage(float amount)
     {
+        GetComponent<AudioSource>().Play();
         Health -= amount;
 
         if (Health <= 0)
@@ -51,4 +54,10 @@ public class HealthManager : MonoBehaviour
 
 
     }
+}
+
+
+public enum SceneNames
+{
+    Game, Score
 }
